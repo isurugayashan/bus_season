@@ -15,8 +15,10 @@ interface MonthlyRecord {
     _id: string
     name: string
     empid: string
+    fee: number
     mobile: string
-    nic: string
+    endlocation: string
+    duration: string
     department: {
       _id: string
       name: string
@@ -67,12 +69,14 @@ export default function ReportView() {
   }
 
   const handleExportCSV = () => {
-    const headers = ["Name", "Employee ID", "Department", "NIC", "Mobile", "Status"]
+    const headers = ["Name", "Employee ID", "Department", "End-Location", "Season-Fee", "Duration", "Mobile", "Status"]
     const rows = records.map((r) => [
       r.passengerId.name,
       r.passengerId.empid,
       r.passengerId.department?.name || "N/A",
-      r.passengerId.nic || "N/A",
+      r.passengerId.endlocation,
+      r.passengerId.fee,
+      r.passengerId.duration,
       r.passengerId.mobile,
       r.selected ? "WITH Season" : "WITHOUT Season",
     ])
@@ -199,9 +203,6 @@ export default function ReportView() {
                                   {record.passengerId.department?.name || "N/A"}
                                 </Badge>
                               </div>
-                              <p className="text-xs text-muted-foreground mt-1">
-                                NIC: {record.passengerId.nic || "N/A"}
-                              </p>
                               <p className="text-xs text-muted-foreground">
                                 Mobile: {record.passengerId.mobile}
                               </p>
@@ -244,9 +245,6 @@ export default function ReportView() {
                                   {record.passengerId.department?.name || "N/A"}
                                 </Badge>
                               </div>
-                              <p className="text-xs text-muted-foreground mt-1">
-                                NIC: {record.passengerId.nic || "N/A"}
-                              </p>
                               <p className="text-xs text-muted-foreground">
                                 Mobile: {record.passengerId.mobile}
                               </p>

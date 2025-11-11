@@ -19,6 +19,21 @@ const passengerSchema = new mongoose.Schema(
             required: true,
             trim: true,
         },
+        endlocation: {
+            type: String,
+            required: true,
+            trim: true,
+        },
+        duration: {
+            type: String,
+            required: true,
+            trim: true,
+        },
+        fee: {
+            type: Number,
+            required: true,
+            trim: true,
+        },
         department: {
             type: mongoose.Schema.Types.ObjectId,
             ref: "department",

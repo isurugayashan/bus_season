@@ -13,9 +13,11 @@ interface Passenger {
   _id: string
   name: string
   empid: string
-  seasonId: string
-  nic: string
+  department: string
+  fee: number
   mobile: string
+  endlocation: string
+  duration: string
 }
 
 export default function MonthlySelection() {
@@ -137,14 +139,14 @@ export default function MonthlySelection() {
     }
   }
 
-  const uniqueSeasons = Array.from(new Set(passengers.map((p) => p.seasonId)))
+  // const uniqueSeasons = Array.from(new Set(passengers.map((p) => p.seasonId)))
 
   const filteredPassengers = passengers.filter((p) => {
     const matchesSearch =
         p.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
         p.empid.toLowerCase().includes(searchTerm.toLowerCase())
-    const matchesSeason = !filterSeason || p.seasonId === filterSeason
-    return matchesSearch && matchesSeason
+    // const matchesSeason = !filterSeason || p.seasonId === filterSeason
+    return matchesSearch
   })
 
   if (loading) return <div className="text-center py-8">Loading passengers...</div>
@@ -263,7 +265,7 @@ export default function MonthlySelection() {
                               {passenger.empid}
                             </Badge>
                             <Badge variant="secondary" className="text-xs">
-                              {passenger.seasonId}
+                              {passenger.department}
                             </Badge>
                           </div>
                         </div>

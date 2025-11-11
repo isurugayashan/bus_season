@@ -13,6 +13,9 @@ export default function PassengerForm() {
     department: "",
     mobile: "",
     name: "",
+    fee: "",
+    endlocation: "",
+    duration: ""
   })
 
   interface Department {
@@ -85,7 +88,7 @@ export default function PassengerForm() {
 
       setMessage("Passenger added successfully!")
       setMessageType("success")
-      setFormData({ empid: "", department: "", mobile: "", name: "" })
+      setFormData({ empid: "", department: "", mobile: "", name: "", endlocation: "", duration: "", fee: "" })
     } catch (err) {
       setMessage("An error occurred. Please try again.")
       setMessageType("error")
@@ -95,75 +98,111 @@ export default function PassengerForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4">
-      {message && (
-        <Alert variant={messageType === "error" ? "destructive" : "default"}>
-          <AlertDescription>{message}</AlertDescription>
-        </Alert>
-      )}
+      <form onSubmit={handleSubmit} className="space-y-4">
+        {message && (
+            <Alert variant={messageType === "error" ? "destructive" : "default"}>
+              <AlertDescription>{message}</AlertDescription>
+            </Alert>
+        )}
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div className="space-y-2">
-          <label className="text-sm font-medium">Name</label>
-          <Input
-            type="text"
-            name="name"
-            placeholder="Passenger Name"
-            value={formData.name}
-            onChange={handleChange}
-            required
-          />
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="space-y-2">
+            <label className="text-sm font-medium">Name</label>
+            <Input
+                type="text"
+                name="name"
+                placeholder="Passenger Name"
+                value={formData.name}
+                onChange={handleChange}
+                required
+            />
+          </div>
+
+          <div className="space-y-2">
+            <label className="text-sm font-medium">Employee ID</label>
+            <Input
+                type="text"
+                name="empid"
+                placeholder="EMP001"
+                value={formData.empid}
+                onChange={handleChange}
+                required
+            />
+          </div>
+
+          <div className="space-y-2">
+            <label className="text-sm font-medium">Department</label>
+            <Select
+                value={formData.department}
+                onValueChange={(value) =>
+                    setFormData(prev => ({ ...prev, department: value }))
+                }
+            >
+              <SelectTrigger className="w-full">
+                <SelectValue placeholder="Select department" />
+              </SelectTrigger>
+              <SelectContent>
+                {departments.map((dept) => (
+                    <SelectItem key={dept._id} value={dept._id}>
+                      {dept.name}
+                    </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+
+          <div className="space-y-2">
+            <label className="text-sm font-medium">Mobile Number</label>
+            <Input
+                type="tel"
+                name="mobile"
+                placeholder="+94712345678"
+                value={formData.mobile}
+                onChange={handleChange}
+                required
+            />
+          </div>
+
+          <div className="space-y-2">
+            <label className="text-sm font-medium">Season Fee</label>
+            <Input
+                type="number"
+                name="fee"
+                placeholder="+94712345678"
+                value={formData.fee}
+                onChange={handleChange}
+                required
+            />
+          </div>
+
+          <div className="space-y-2">
+            <label className="text-sm font-medium">Duration</label>
+            <Input
+                type="text"
+                name="duration"
+                placeholder="3"
+                value={formData.duration}
+                onChange={handleChange}
+                required
+            />
+          </div>
+
+          <div className="space-y-2">
+            <label className="text-sm font-medium">End Location</label>
+            <Input
+                type="text"
+                name="endlocation"
+                placeholder="Maharagama"
+                value={formData.endlocation}
+                onChange={handleChange}
+                required
+            />
+          </div>
         </div>
 
-        <div className="space-y-2">
-          <label className="text-sm font-medium">Employee ID</label>
-          <Input
-            type="text"
-            name="empid"
-            placeholder="EMP001"
-            value={formData.empid}
-            onChange={handleChange}
-            required
-          />
-        </div>
-
-        <div className="space-y-2">
-          <label className="text-sm font-medium">Department</label>
-          <Select
-              value={formData.department}
-              onValueChange={(value) =>
-                  setFormData(prev => ({ ...prev, department: value }))
-              }
-          >
-            <SelectTrigger className="w-full">
-              <SelectValue placeholder="Select department" />
-            </SelectTrigger>
-            <SelectContent>
-              {departments.map((dept) => (
-                  <SelectItem key={dept._id} value={dept._id}>
-                    {dept.name}
-                  </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-        </div>
-
-        <div className="space-y-2">
-          <label className="text-sm font-medium">Mobile Number</label>
-          <Input
-            type="tel"
-            name="mobile"
-            placeholder="+94712345678"
-            value={formData.mobile}
-            onChange={handleChange}
-            required
-          />
-        </div>
-      </div>
-
-      <Button type="submit" className="w-full" disabled={loading}>
-        {loading ? "Adding..." : "Add Passenger"}
-      </Button>
-    </form>
+        <Button type="submit" className="w-full" disabled={loading}>
+          {loading ? "Adding..." : "Add Passenger"}
+        </Button>
+      </form>
   )
 }

@@ -30,8 +30,8 @@ export default async function DashboardPage() {
         {/* Main Content */}
         <main className="max-w-7xl mx-auto px-4 py-8">
           <Tabs defaultValue="passengers" className="w-full">
-            <TabsList className="grid w-full grid-cols-2 md:grid-cols-4 overflow-x-auto">
-              <TabsTrigger value="passengers">Passengers</TabsTrigger>
+            <TabsList className="flex w-full overflow-x-auto md:grid md:grid-cols-4">
+              <TabsTrigger value="passengers">List</TabsTrigger>
               <TabsTrigger value="add-passenger">Add Passenger</TabsTrigger>
               <TabsTrigger value="monthly">Monthly Selection</TabsTrigger>
               <TabsTrigger value="reports">Reports</TabsTrigger>
